@@ -1,5 +1,7 @@
+import project.BinOpNode;
 import project.OperandNode;
 import project.UnaryOpNode;
+import project.Visitable;
 
 public class Test {
 
@@ -23,8 +25,7 @@ public class Test {
         {
             UnaryOpNode op1 = (UnaryOpNode) v1;
             UnaryOpNode op2 = (UnaryOpNode) v2;
-            return op1.operator.equals(op2.operator) && equals(op1.subNode,
-                    op2.subNode);
+            return op1.operator.equals(op2.operator) && equals(op1.subNode, op2.subNode);
         }
         if (v1.getClass() == BinOpNode.class)
         {
