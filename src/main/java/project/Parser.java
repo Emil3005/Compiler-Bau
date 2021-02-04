@@ -39,8 +39,16 @@ public class Parser {
             match('#');
             assertEndOfInput();
             return new OperandNode("#");
-        }else throw new RuntimeException("Syntax nicht korrekt!");
+        }else throw new RuntimeException("Syntax error !");
     }
+
+    private Visitable regexp(Visitable parameter){
+           Visitable term = term(null);
+           Visitable re = (term);
+           return re;
+    }
+
+
 
     //------------------------------------------------------------------
 // 1. wird benoetigt bei der Regel Start -> '(' RegExp ')''#'
