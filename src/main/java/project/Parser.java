@@ -48,6 +48,17 @@ public class Parser {
            return re;
     }
 
+    private Visitable re(Visitable parameter){
+        if (eingabe.charAt(position) == '|'){
+            Visitable term = term(null);
+            Visitable root = new BinOpNode("|", parameter,term);
+            return re(root);
+        }else if (eingabe.charAt(position) == ')'){
+            return parameter;
+        }else throw new RuntimeException("Syntax error!");
+    }
+
+
 
 
     //------------------------------------------------------------------
