@@ -24,6 +24,24 @@ public class Parser {
         position++;
     }
 
+
+    //TODO: Könnt mal nachschauen, ob das für euch auch Sinn macht (steht nahezu komplett auf S.20)
+
+    private Visitable start(Visitable parameter){
+        if (eingabe.charAt(position) == '('){
+            match('(');
+            Visitable subTree = regexp(null);
+            match(')');
+            match('#');
+            assertEndOfInput();
+            return new BinOpNode("°", subTree, new OperandNode("#"));
+        }else if (eingabe.charAt(position) == '#'){
+            match('#');
+            assertEndOfInput();
+            return new OperandNode("#");
+        }else throw new RuntimeException("Syntax nicht korrekt!");
+    }
+
     //------------------------------------------------------------------
 // 1. wird benoetigt bei der Regel Start -> '(' RegExp ')''#'
 // 2. wird benoetigt bei der Regel Start -> '#'
