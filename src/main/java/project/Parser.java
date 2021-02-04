@@ -43,9 +43,12 @@ public class Parser {
     }
 
     private Visitable regexp(Visitable parameter){
-           Visitable term = term(null);
-           Visitable re = (term);
-           return re;
+        char curChar = eingabe.charAt(position);
+        if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '(') {
+            Visitable term = term(null);
+            Visitable re = (term);
+            return re;
+        }else throw new RuntimeException("Syntax error !");
     }
 
     private Visitable re(Visitable parameter){
