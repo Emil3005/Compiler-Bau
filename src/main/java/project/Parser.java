@@ -61,6 +61,17 @@ public class Parser {
         }else throw new RuntimeException("Syntax error!");
     }
 
+    private Visitable term(Visitable parameter){
+        char curChar = eingabe.charAt(position);
+        if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '('){
+            if (parameter != null){
+                return term(new BinOpNode("°", parameter, factor(null)));
+            }else return term(factor(null));
+        }else if (curChar == '|' || curChar == ')'){
+            return parameter;
+        }else throw new RuntimeException("Syntax error!");
+    }
+
 
 
 
