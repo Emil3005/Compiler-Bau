@@ -73,6 +73,13 @@ public class Parser {
     }
 
 
+    private Visitable factor(Visitable parameter){
+        char curChar = eingabe.charAt(position);
+        if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '('){
+            Visitable elem = elem(null);
+            return hop(elem);
+        }else throw new RuntimeException("Syntax error!");
+    }
 
 
     //------------------------------------------------------------------
