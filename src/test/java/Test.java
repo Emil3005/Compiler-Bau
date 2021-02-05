@@ -65,7 +65,7 @@ public class Test {
                     op1.lastpos.equals(op2.lastpos);
         }
         throw new IllegalStateException(
-                String.format("Beide Wurzelknoten sind Instanzen der Klasse %1$s !" + " Dies ist nicht erlaubt!" +
-                        expected.getClass().getSimpleName()));
+                "Beide Wurzelknoten sind Instanzen der Klasse %1$s !" + " Dies ist nicht erlaubt!" +
+                        expected.getClass().getSimpleName());
     }
 }

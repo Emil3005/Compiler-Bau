@@ -3,12 +3,12 @@ package project;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FollowposTableEntry {
+public class FollowPosTableEntry {
     public final int position;
     public final String symbol;
     public final Set<Integer> followpos = new HashSet<>();
 
-    public FollowposTableEntry(int position, String symbol) {
+    public FollowPosTableEntry(int position, String symbol) {
         this.position = position;
         this.symbol = symbol;
     }
@@ -18,10 +18,10 @@ public class FollowposTableEntry {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof FollowposTableEntry)) {
+        if (!(obj instanceof FollowPosTableEntry)) {
             return false;
         }
-        FollowposTableEntry other = (FollowposTableEntry) obj;
+        FollowPosTableEntry other = (FollowPosTableEntry) obj;
         return this.position == other.position &&
                 this.symbol.equals(other.symbol) &&
                 this.followpos.equals(other.followpos);
