@@ -44,6 +44,7 @@ public class FirstVisitor implements Visitor {
                 node.lastpos.addAll(((SyntaxNode) node.right).lastpos);
                 break;
 
+
             default:
                 throw new IllegalStateException("Unexpected value: " + node.operator);
         }
