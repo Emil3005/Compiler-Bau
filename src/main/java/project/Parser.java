@@ -4,13 +4,11 @@ public class Parser {
     private int position;
     private final String eingabe;
 
-    //...
     public Parser(String eingabe) {
         this.eingabe = eingabe;
         this.position = 0;
     }
 
-    //...
     private void match(char symbol) {
         if ((eingabe == null) || ("".equals(eingabe))) {
             throw new RuntimeException("Syntax error !");
@@ -24,6 +22,11 @@ public class Parser {
         position++;
     }
 
+    private void assertEndOfInput() {
+        if (position < eingabe.length()) {
+            throw new RuntimeException(" No end of input reached !");
+        }
+    }
 
     //TODO: Könnt mal nachschauen, ob das für euch auch Sinn macht (steht nahezu komplett auf S.20)
 
@@ -103,17 +106,13 @@ public class Parser {
         }else throw new RuntimeException("Syntax error!");
     }
 
-
-
-
-    //------------------------------------------------------------------
-// 1. wird benoetigt bei der Regel Start -> '(' RegExp ')''#'
-// 2. wird benoetigt bei der Regel Start -> '#'
-// 3. wird sonst bei keiner anderen Regel benoetigt
-//------------------------------------------------------------------
-    private void assertEndOfInput() {
-        if (position < eingabe.length()) {
-            throw new RuntimeException(" No end of input reached !");
-        }
+    private Visitable alphanum(Visitable parameter){
+        char curChar = eingabe.charAt(position);
+        if (Character.isLetter(curChar) || Character.isDigit(curChar)){
+            match(curChar);
+            String curString = Character.toString(curChar);
+            return new OperandNode(curString);
+        }else throw new RuntimeException("Syntax error!");
     }
+
 }
