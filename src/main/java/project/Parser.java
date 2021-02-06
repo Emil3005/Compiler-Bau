@@ -81,6 +81,17 @@ public class Parser {
         }else throw new RuntimeException("Syntax error!");
     }
 
+    private Visitable hop(Visitable parameter){
+        char curChar = eingabe.charAt(position);
+        if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '(' || curChar == '|' || curChar ==')'){
+            return parameter;
+        }else if (curChar == '*' || curChar == '+' || curChar == '?'){
+            match(curChar);
+            String curString = Character.toString(curChar); // Cast curChar to String for Node
+            return new UnaryOpNode(curString, parameter);
+        }else throw new RuntimeException("Syntax error!");
+    }
+
 
     //------------------------------------------------------------------
 // 1. wird benoetigt bei der Regel Start -> '(' RegExp ')''#'
