@@ -45,8 +45,7 @@ public class Parser {
     private Visitable regexp(Visitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '(') {
-            Visitable term = term(null);
-            Visitable re = (term);
+            Visitable re = (term(null));
             return re;
         }else throw new RuntimeException("Syntax error !");
     }
@@ -91,6 +90,20 @@ public class Parser {
             return new UnaryOpNode(curString, parameter);
         }else throw new RuntimeException("Syntax error!");
     }
+
+    private Visitable elem(Visitable parameter){
+        char curChar = eingabe.charAt(position);
+        if (Character.isLetter(curChar) || Character.isDigit(curChar)){
+            return alphanum(null);
+        }else if(curChar == '('){
+            match('(');
+            Visitable regexp = regexp(null);
+            match(')');
+            return regexp;
+        }else throw new RuntimeException("Syntax error!");
+    }
+
+
 
 
     //------------------------------------------------------------------
