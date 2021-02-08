@@ -30,7 +30,7 @@ public class Parser {
 
     //TODO: Könnt mal nachschauen, ob das für euch auch Sinn macht (steht nahezu komplett auf S.20)
 
-    private Visitable start(Visitable parameter){
+    public Visitable start(Visitable parameter){
         if (eingabe.charAt(position) == '('){
             match('(');
             Visitable subTree = regexp(null);
