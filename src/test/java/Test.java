@@ -1,10 +1,12 @@
+package java;
+
 import project.BinOpNode;
 import project.OperandNode;
 import project.UnaryOpNode;
 import project.Visitable;
 
 public class Test {
-
+/*
     //Vergleich zweier Syntaxbäume
     private static boolean equals(Visitable v1, Visitable v2) {
         if (v1 == v2)
@@ -67,5 +69,5 @@ public class Test {
         throw new IllegalStateException(
                 "Beide Wurzelknoten sind Instanzen der Klasse %1$s !" + " Dies ist nicht erlaubt!" +
                         expected.getClass().getSimpleName());
-    }
+    }*/
 }
