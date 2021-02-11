@@ -15,28 +15,25 @@ public class SecondVisitor implements Visitor {
     @Override
     public void visit(BinOpNode node) {
         switch (node.operator) {
-            case "°":
+            case "°" -> {
                 SyntaxNode syntaxNodeLeft = (SyntaxNode) node.left;
                 syntaxNodeLeft.lastpos.forEach(i -> {
                     SyntaxNode syntaxNodeRight = (SyntaxNode) node.right;
                     followPosTableEntries.get(i).followpos.addAll(syntaxNodeRight.firstpos);
                 });
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + node.operator);
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + node.operator);
         }
     }
 
     @Override
     public void visit(UnaryOpNode node) {
         switch (node.operator) {
-            case "*":
-            case "+":
+            case "*", "+" -> {
                 SyntaxNode syntaxNode = (SyntaxNode) node.subNode;
                 syntaxNode.lastpos.forEach(i -> followPosTableEntries.get(i).followpos.addAll(syntaxNode.firstpos));
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + node.operator);
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + node.operator);
         }
     }
 

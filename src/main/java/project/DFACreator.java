@@ -43,9 +43,9 @@ public class DFACreator {
         while(!qStates.isEmpty())
         {
             //ersten Zustand aus qStates entnehmen
-            DFAState currentState=...;
+            //DFAState currentState=...;
             //ersten Zustand aus qStates entfernen
-            .....
+            //.....
 
             //neue Zeile in stateTransitionTable hinzufuegen mit currentState als Schluessel
             stateTransitionTable.put(currentState, new HashMap<>());
@@ -60,11 +60,11 @@ public class DFACreator {
 
     }
 
-    public Map<DFAState, Map<Char, DFAState>> getStateTransitionTable()
+    public Map<DFAState, Map<Character, DFAState>> getStateTransitionTable()
     {
         return stateTransitionTable;
     }
-    ...
+
 
     */
 }
