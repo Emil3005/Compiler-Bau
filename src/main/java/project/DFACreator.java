@@ -6,7 +6,7 @@ public class DFACreator {
 
     private final Set<Integer>                            positionsForStartState;
     private final SortedMap<Integer, FollowPosTableEntry> followposTable;  //bei uns Klasse FollowPos mit großem P
-    private final Map<DFAState, Map<Char, DFAState>>      stateTransitionTable;
+    private final Map<DFAState, Map<Character, DFAState>> stateTransitionTable; //= new ThreadLocal<Map<DFAState, Map<Character, DFAState>>>();
     private int counter = 1;
     /**    * Man beachte ! Parameter <code>positionsForStartState</code> muss vom Aufrufer
      * * mit der firstpos-Menge des Wurzelknotens des Syntaxbaums initialisiert werden !    */
@@ -35,7 +35,10 @@ public class DFACreator {
                 positionsForStartState.contains(posOfTerminatingSymbol),
                 positionsForStartState
         );
+
         qStates.add(startState);
+
+        /*
         //Algorithmus durchlaufen
         while(!qStates.isEmpty())
         {
@@ -62,4 +65,7 @@ public class DFACreator {
         return stateTransitionTable;
     }
     ...
+
+    */
+}
 }
