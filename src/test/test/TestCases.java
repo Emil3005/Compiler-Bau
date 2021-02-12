@@ -71,4 +71,9 @@ public class TestCases {
                 "Beide Wurzelknoten sind Instanzen der Klasse %1$s !" + " Dies ist nicht erlaubt!" +
                         expected.getClass().getSimpleName());
     }
+
+    //Test DEA
+    {
+        DFACreator cr = new DFACreator();
+    }
 }
