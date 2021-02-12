@@ -1,8 +1,4 @@
-
-
-import junit.framework.TestCase;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import project.BinOpNode;
 import project.OperandNode;
 import project.UnaryOpNode;
