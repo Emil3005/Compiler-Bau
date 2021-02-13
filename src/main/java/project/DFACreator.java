@@ -41,19 +41,22 @@ public class DFACreator {
                 );
 
         qStates.add(startState);
-
+        DFAState currentState;
+        Map<Character, DFAState> sTTinnerMap;
+        DFAState nextState;
 
         //Algorithmus durchlaufen
         while(!qStates.isEmpty())
         {
             //aktuellen Zustand aus qStates entnehmen
-            DFAState currentState=qStates.get(counter);
+            currentState=qStates.get(counter);
             //aktuellen Zustand aus qStates entfernen
             qStates.remove(counter);
 
+            sTTinnerMap= new HashMap<>();
 
             //neue Zeile in stateTransitionTable hinzufuegen mit currentState als Schluessel
-            stateTransitionTable.put(currentState, new HashMap<>());
+            stateTransitionTable.put(currentState, sTTinnerMap);
 
             for(String symbol:alphabet)
             {
@@ -61,11 +64,35 @@ public class DFACreator {
                 Character Ctest;
 
                 Ctest = Character.valueOf(symbol.charAt(0));
-                Map<Character, DFAState> testung = new HashMap<>(); //wo geht es von current state weiter mit dem aktuellen symbol?
-                FollowPosTableEntry fpte = followPosTable.get(counter);
+                //ab calculatenext
+                Set<Integer> nextPositionsSet = new HashSet<>();
+                for(FollowPosTableEntry entry: followPosTable.values())
+                {
+                    if(currentState.positionsSet.contains(entry.position) && entry.symbol.equals(symbol))
+                    {
+                        nextPositionsSet.addAll(entry.followpos);
+                    }
+                }
 
-                testung.put(Ctest, fpte);
-                stateTransitionTable.put(currentState, testung);
+
+                if(nextPositionsSet.isEmpty())
+                {
+                    nextState = null;
+                }
+                else
+                {
+                    boolean isAcceptingState = nextPositionsSet.contains(posOfTerminatingSymbol); //das hier ggf. falsch abgeändert, ka
+                    counter++;
+                    nextState = new DFAState(counter, isAcceptingState, nextPositionsSet);
+                }
+                //bis hier calculatenext
+                sTTinnerMap.put(Character.valueOf(symbol.charAt(0)), nextState);
+
+                if(nextState != null && !stateTransitionTable.containsKey(nextState) && !qStates.contains(nextState))
+                {
+                    qStates.add(nextState);
+                }
+
                 //Überprüfen, ob Folgezustand schone rfasst bzw. verarbeitet wurde
                 //fals nicht, am Ende von qStates hinzufügen
             }
