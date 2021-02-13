@@ -1,13 +1,13 @@
-package java;
-
+import org.junit.Test;
 import project.BinOpNode;
 import project.OperandNode;
 import project.UnaryOpNode;
 import project.Visitable;
 
-public class Test {
-/*
+public class TestCases {
+
     //Vergleich zweier Syntaxbäume
+    @Test
     private static boolean equals(Visitable v1, Visitable v2) {
         if (v1 == v2)
             return true;
@@ -39,6 +39,7 @@ public class Test {
 
 
     //Überprüfen des ersten Visitors (Kapitel 4.3)
+    @Test
     private boolean equals(Visitable expected, Visitable visited) {
         if (expected == null && visited == null) return true;
         if (expected == null || visited == null) return false;
@@ -69,5 +70,10 @@ public class Test {
         throw new IllegalStateException(
                 "Beide Wurzelknoten sind Instanzen der Klasse %1$s !" + " Dies ist nicht erlaubt!" +
                         expected.getClass().getSimpleName());
-    }*/
+    }
+
+    //Test DEA
+    {
+        DFACreator cr = new DFACreator();
+    }
 }
