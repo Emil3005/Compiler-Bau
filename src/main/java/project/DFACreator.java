@@ -5,8 +5,8 @@ import java.util.*;
 public class DFACreator {
 
     private final Set<Integer>                            positionsForStartState;
-    private final SortedMap<Integer, FollowPosTableEntry> followPosTable;  //bei uns Klasse FollowPos mit großem P
-    private final Map<DFAState, Map<Character, DFAState>> stateTransitionTable; //= new ThreadLocal<Map<DFAState, Map<Character, DFAState>>>();
+    private final SortedMap<Integer, FollowPosTableEntry> followPosTable;
+    private final Map<DFAState, Map<Character, DFAState>> stateTransitionTable;
     private int counter = 1;
     /**    * Man beachte ! Parameter <code>positionsForStartState</code> muss vom Aufrufer
      * * mit der firstpos-Menge des Wurzelknotens des Syntaxbaums initialisiert werden !    */
@@ -52,7 +52,6 @@ public class DFACreator {
             currentState=qStates.get(0);
             //aktuellen Zustand aus qStates entfernen
             qStates.remove(0);
-           // counter--;
             innerMap= new HashMap<>();
 
             //neue Zeile in stateTransitionTable hinzufuegen mit currentState als Schluessel
@@ -62,8 +61,9 @@ public class DFACreator {
             {
                 //Folgezustand ermitteln + eifnügen in neue Zeile
 
-                //ab calculatenext
+
                 Set<Integer> nextPositionsSet = new HashSet<>();
+
                 for(FollowPosTableEntry entry: followPosTable.values())
                 {
                     if(currentState.positionsSet.contains(entry.position) && entry.symbol.equals(symbol))
@@ -79,20 +79,21 @@ public class DFACreator {
                 }
                 else
                 {
-                    boolean isAcceptingState = nextPositionsSet.contains(posOfTerminatingSymbol); //das hier ggf. falsch abgeändert, ka
-                    //counter++;
+                    boolean isAcceptingState = nextPositionsSet.contains(posOfTerminatingSymbol);
+
                     nextState = new DFAState(counter++, isAcceptingState, nextPositionsSet);
                 }
-                //bis hier calculatenext
-                innerMap.put(Character.valueOf(symbol.charAt(0)), nextState);
 
+                innerMap.put(Character.valueOf(symbol.charAt(0)), nextState);
+                //Überprüfen, ob Folgezustand schone rfasst bzw. verarbeitet wurde
+                //fals nicht, am Ende von qStates hinzufügen
                 if(nextState != null && !stateTransitionTable.containsKey(nextState) && !qStates.contains(nextState))
                 {
                     qStates.add(nextState);
                 }
 
-                //Überprüfen, ob Folgezustand schone rfasst bzw. verarbeitet wurde
-                //fals nicht, am Ende von qStates hinzufügen
+
+
             }
         }
 
