@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCases {
 
-/*    //Vergleich zweier Syntaxbäume
+    //Vergleich zweier Syntaxbäume
     @Test
     private static boolean equals(Visitable v1, Visitable v2) {
         if (v1 == v2)
@@ -77,8 +77,8 @@ public class TestCases {
                 "Beide Wurzelknoten sind Instanzen der Klasse %1$s !" + " Dies ist nicht erlaubt!" +
                         expected.getClass().getSimpleName());
     }
-*/
-    //Test DEA
+
+    //Test DFA
     @Test
     public void test()
     {

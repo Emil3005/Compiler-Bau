@@ -35,7 +35,7 @@ public class DFACreator {
         int posOfTerminatingSymbol = followPosTable.lastKey(); //Schluessel des letzten Eintrags
         DFAState startState = new DFAState
                 (
-                counter++, //++ entfernt
+                counter++,
                 positionsForStartState.contains(posOfTerminatingSymbol),
                 positionsForStartState
                 );
