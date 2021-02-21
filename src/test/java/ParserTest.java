@@ -93,7 +93,7 @@ public class ParserTest {
     }
 
     @Test
-    public void ValidSyntax_Positve(){
+    public void ValidSyntax_Positive(){
         Parser parser = new Parser("(a+)#");
         IVisitable GeneratedTree = parser.start(null);
 
