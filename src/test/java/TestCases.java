@@ -1,8 +1,16 @@
+<<<<<<< HEAD:src/test/test/TestCases.java
 import org.junit.jupiter.api.Test;
 import project.BinOpNode;
 import project.OperandNode;
 import project.UnaryOpNode;
 import project.Visitable;
+=======
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import project.*;
+>>>>>>> reset:src/test/java/TestCases.java
 
 import java.util.*;
 
@@ -12,6 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCases {
 
+    @Test
+    public void test(){
+        assertEquals(21,21);
+    }
+
+    /*
     //Vergleich zweier Syntaxbäume
     @Test
     private static boolean equals(Visitable v1, Visitable v2) {
@@ -146,7 +160,11 @@ public class TestCases {
 
     }
 
+<<<<<<< HEAD:src/test/test/TestCases.java
 
 
 
+=======
+  */
+>>>>>>> reset:src/test/java/TestCases.java
 }
