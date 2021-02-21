@@ -1,6 +1,6 @@
 package project;
 
-public class FirstVisitor implements Visitor {
+public class FirstVisitor implements IVisitor {
 
     @Override
     public void visit(OperandNode node) {

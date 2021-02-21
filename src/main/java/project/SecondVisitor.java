@@ -3,7 +3,7 @@ package project;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public class SecondVisitor implements Visitor {
+public class SecondVisitor implements IVisitor {
     private final SortedMap<Integer, FollowPosTableEntry> followPosTableEntries = new TreeMap<>();
 
     @Override
@@ -22,7 +22,7 @@ public class SecondVisitor implements Visitor {
                     followPosTableEntries.get(i).followpos.addAll(syntaxNodeRight.firstpos);
                 });
             }
-            default -> throw new IllegalStateException("Unexpected value: " + node.operator);
+
         }
     }
 
@@ -33,7 +33,7 @@ public class SecondVisitor implements Visitor {
                 SyntaxNode syntaxNode = (SyntaxNode) node.subNode;
                 syntaxNode.lastpos.forEach(i -> followPosTableEntries.get(i).followpos.addAll(syntaxNode.firstpos));
             }
-            default -> throw new IllegalStateException("Unexpected value: " + node.operator);
+
         }
     }
 

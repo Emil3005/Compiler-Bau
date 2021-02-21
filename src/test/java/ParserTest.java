@@ -1,12 +1,12 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import project.*;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
-    private static boolean equals(Visitable v1, Visitable v2){
+    private static boolean equals(IVisitable v1, IVisitable v2){
         if (v1 == v2)
             return true;
         if (v1 == null)
@@ -42,9 +42,9 @@ public class ParserTest {
     @Test
     public void ValidSyntax_Concatenation(){
         Parser parser = new Parser("(bca)#");
-        Visitable GeneratedTree = parser.start(null);
+        IVisitable GeneratedTree = parser.start(null);
 
-        Visitable left = new OperandNode("b");
+        IVisitable left = new OperandNode("b");
         ((OperandNode) left).position = 1;
         OperandNode right = new OperandNode("c");
         right.position = 2;
@@ -54,7 +54,7 @@ public class ParserTest {
         left = new BinOpNode("°", left, right);
         right = new OperandNode("#");
         right.position = 4;
-        Visitable HardCodedTree = new BinOpNode("°", left, right);
+        IVisitable HardCodedTree = new BinOpNode("°", left, right);
 
 
         assertTrue(equals(GeneratedTree, HardCodedTree));
@@ -63,16 +63,16 @@ public class ParserTest {
     @Test
     public void ValidSyntax_Alternative(){
         Parser parser = new Parser("(a|b)#");
-        Visitable GeneratedTree = parser.start(null);
+        IVisitable GeneratedTree = parser.start(null);
 
-        Visitable left = new OperandNode("a");
+        IVisitable left = new OperandNode("a");
         ((OperandNode) left).position = 1;
         OperandNode right = new OperandNode("b");
         right.position = 2;
         left = new BinOpNode("|", left, right);
         right = new OperandNode("#");
         right.position = 3;
-        Visitable HardCodedTree = new BinOpNode("°", left, right);
+        IVisitable HardCodedTree = new BinOpNode("°", left, right);
 
         assertTrue(equals(GeneratedTree, HardCodedTree));
     }
@@ -80,14 +80,14 @@ public class ParserTest {
     @Test
     public void ValidSyntax_Kleen(){
         Parser parser = new Parser("(a*)#");
-        Visitable GeneratedTree = parser.start(null);
+        IVisitable GeneratedTree = parser.start(null);
 
         OperandNode subNode = new OperandNode("a");
         subNode.position = 1;
-        Visitable left = new UnaryOpNode("*", subNode);
+        IVisitable left = new UnaryOpNode("*", subNode);
         OperandNode right = new OperandNode("#");
         right.position = 2;
-        Visitable HardCodedTree = new BinOpNode("°", left, right);
+        IVisitable HardCodedTree = new BinOpNode("°", left, right);
 
         assertTrue(equals(GeneratedTree, HardCodedTree));
     }
@@ -95,14 +95,14 @@ public class ParserTest {
     @Test
     public void ValidSyntax_Positve(){
         Parser parser = new Parser("(a+)#");
-        Visitable GeneratedTree = parser.start(null);
+        IVisitable GeneratedTree = parser.start(null);
 
         OperandNode subNode = new OperandNode("a");
         subNode.position = 1;
-        Visitable left = new UnaryOpNode("+", subNode);
+        IVisitable left = new UnaryOpNode("+", subNode);
         OperandNode right = new OperandNode("#");
         right.position = 2;
-        Visitable HardCodedTree = new BinOpNode("°", left, right);
+        IVisitable HardCodedTree = new BinOpNode("°", left, right);
 
         assertTrue(equals(GeneratedTree,HardCodedTree));
 
@@ -112,14 +112,14 @@ public class ParserTest {
     @Test
     public void ValidSyntax_Option(){
         Parser parser = new Parser("(a?)#");
-        Visitable GeneratedTree = parser.start(null);
+        IVisitable GeneratedTree = parser.start(null);
 
         OperandNode subNode = new OperandNode("a");
         subNode.position = 1;
-        Visitable left = new UnaryOpNode("?", subNode);
+        IVisitable left = new UnaryOpNode("?", subNode);
         OperandNode right = new OperandNode("#");
         right.position = 2;
-        Visitable HardCodedTree = new BinOpNode("°", left, right);
+        IVisitable HardCodedTree = new BinOpNode("°", left, right);
 
         assertTrue(equals(GeneratedTree, HardCodedTree));
 
@@ -129,9 +129,9 @@ public class ParserTest {
     @Test
     public void ValidSyntax_Complex(){
         Parser parser = new Parser("((a|b)*bc)#");
-        Visitable GeneratedTree = parser.start(null);
+        IVisitable GeneratedTree = parser.start(null);
 
-        Visitable left = new OperandNode("a");
+        IVisitable left = new OperandNode("a");
         ((OperandNode) left).position = 1;
         OperandNode right = new OperandNode("b");
         right.position = 2;
@@ -145,7 +145,7 @@ public class ParserTest {
         left = new BinOpNode("°", left, right);
         right = new OperandNode("#");
         right.position = 5;
-        Visitable refTree = new BinOpNode("°", left, right);
+        IVisitable refTree = new BinOpNode("°", left, right);
 
 
         assertTrue(equals(GeneratedTree, refTree));

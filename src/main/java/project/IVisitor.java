@@ -1,6 +1,6 @@
 package project;
 
-public interface Visitor {
+public interface IVisitor {
     public void visit(OperandNode node);
 
     public void visit(BinOpNode node);

@@ -1,11 +1,11 @@
 package project;
 
-public class BinOpNode extends SyntaxNode implements Visitable {
+public class BinOpNode extends SyntaxNode implements IVisitable {
     public String operator;
-    public Visitable left;
-    public Visitable right;
+    public IVisitable left;
+    public IVisitable right;
 
-    public BinOpNode(String operator, Visitable left, Visitable
+    public BinOpNode(String operator, IVisitable left, IVisitable
             right) {
         this.operator = operator;
         this.left = left;
@@ -13,7 +13,7 @@ public class BinOpNode extends SyntaxNode implements Visitable {
     }
 
     @Override
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
+    public void accept(IVisitor IVisitor) {
+        IVisitor.visit(this);
     }
 }

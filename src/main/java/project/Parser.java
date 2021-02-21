@@ -30,10 +30,10 @@ public class Parser {
         }
     }
 
-    public Visitable start(Visitable parameter){
+    public IVisitable start(IVisitable parameter){
         if (eingabe.charAt(position) == '('){
             match('(');
-            Visitable subTree = regexp(null);
+            IVisitable subTree = regexp(null);
             match(')');
             match('#');
             assertEndOfInput();
@@ -49,27 +49,27 @@ public class Parser {
         }else throw new RuntimeException("Syntax error !");
     }
 
-    private Visitable regexp(Visitable parameter){
+    private IVisitable regexp(IVisitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '(') {
-            Visitable term = (term(null));
+            IVisitable term = (term(null));
             return re(term);
         }else throw new RuntimeException("Syntax error !");
     }
 
-    private Visitable re(Visitable parameter){
+    private IVisitable re(IVisitable parameter){
         char curChar = eingabe.charAt(position);
         if (curChar == '|'){
             match('|');
-            Visitable term = term(null);
-            Visitable root = new BinOpNode("|", parameter,term);
+            IVisitable term = term(null);
+            IVisitable root = new BinOpNode("|", parameter,term);
             return re(root);
         }else if (eingabe.charAt(position) == ')'){
             return parameter;
         }else throw new RuntimeException("Syntax error!");
     }
 
-    private Visitable term(Visitable parameter){
+    private IVisitable term(IVisitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '('){
             if (parameter != null){
@@ -81,15 +81,15 @@ public class Parser {
     }
 
 
-    private Visitable factor(Visitable parameter){
+    private IVisitable factor(IVisitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '('){
-            Visitable elem = elem(null);
+            IVisitable elem = elem(null);
             return hop(elem);
         }else throw new RuntimeException("Syntax error!");
     }
 
-    private Visitable hop(Visitable parameter){
+    private IVisitable hop(IVisitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '(' || curChar == '|' || curChar ==')'){
             return parameter;
@@ -100,19 +100,19 @@ public class Parser {
         }else throw new RuntimeException("Syntax error!");
     }
 
-    private Visitable elem(Visitable parameter){
+    private IVisitable elem(IVisitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar)){
             return alphanum(null);
         }else if(curChar == '('){
             match('(');
-            Visitable regexp = regexp(null);
+            IVisitable regexp = regexp(null);
             match(')');
             return regexp;
         }else throw new RuntimeException("Syntax error!");
     }
 
-    private Visitable alphanum(Visitable parameter){
+    private IVisitable alphanum(IVisitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar)){
             match(curChar);
@@ -122,6 +122,9 @@ public class Parser {
             leafPos++;
             return opNode;
         }else throw new RuntimeException("Syntax error!");
+    }
+    public IVisitable parse() {
+        return this.start(null);
     }
 
 }

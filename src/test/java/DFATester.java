@@ -1,80 +1,40 @@
 import org.junit.jupiter.api.Test;
-import project.BinOpNode;
-import project.OperandNode;
-import project.UnaryOpNode;
-import project.Visitable;
+import project.DFACreator;
+import project.DFAState;
+import project.FollowPosTableEntry;
 
 import java.util.*;
 
-import project.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestCases {
-
-    @Test
-    public void test1() {
-        assertTrue(true);
-        //Überprüfen des ersten Visitors (Kapitel 4.3)
-    }
-    private boolean equals(Visitable expected, Visitable visited) {
-        if (expected == null && visited == null) return true;
-        if (expected == null || visited == null) return false;
-        if (expected.getClass() != visited.getClass()) return false;
-        if (expected.getClass() == BinOpNode.class) {
-            BinOpNode op1 = (BinOpNode) expected;
-            BinOpNode op2 = (BinOpNode) visited;
-            return op1.nullable.equals(op2.nullable) &&
-                    op1.firstpos.equals(op2.firstpos) &&
-                    op1.lastpos.equals(op2.lastpos) &&
-                    equals(op1.left, op2.left) && equals(op1.right, op2.right);
-        }
-        if (expected.getClass() == UnaryOpNode.class) {
-            UnaryOpNode op1 = (UnaryOpNode) expected;
-            UnaryOpNode op2 = (UnaryOpNode) visited;
-            return op1.nullable.equals(op2.nullable) &&
-                    op1.firstpos.equals(op2.firstpos) &&
-                    op1.lastpos.equals(op2.lastpos) &&
-                    equals(op1.subNode, op2.subNode);
-        }
-        if (expected.getClass() == OperandNode.class) {
-            OperandNode op1 = (OperandNode) expected;
-            OperandNode op2 = (OperandNode) visited;
-            return op1.nullable.equals(op2.nullable) &&
-                    op1.firstpos.equals(op2.firstpos) &&
-                    op1.lastpos.equals(op2.lastpos);
-        }
-        throw new IllegalStateException(
-                "Beide Wurzelknoten sind Instanzen der Klasse %1$s !" + " Dies ist nicht erlaubt!" +
-                        expected.getClass().getSimpleName());
-
-
-    }
-
-    //Test DFA
-
+public class DFATester {
     @Test
     public void test()
     {
         Set<Integer> firstpostRoot = new HashSet<>(Arrays.asList(1,2));
 
         SortedMap<Integer, FollowPosTableEntry> followPosTable = new TreeMap<>();
+
         FollowPosTableEntry fPTEntry = new FollowPosTableEntry(1, "a");
         fPTEntry.followpos.addAll(Arrays.asList(1, 2, 3, 4, 5));
         followPosTable.put(1, fPTEntry);
+
         fPTEntry = new FollowPosTableEntry(2, "b");
         fPTEntry.followpos.addAll(Arrays.asList(1, 2, 3, 4, 5));
         followPosTable.put(2, fPTEntry);
+
         fPTEntry = new FollowPosTableEntry(3, "b");
         fPTEntry.followpos.addAll(Arrays.asList(3, 4, 5));
         followPosTable.put(3, fPTEntry);
+
         fPTEntry = new FollowPosTableEntry(4, "c");
         fPTEntry.followpos.addAll(Arrays.asList(3, 4, 5));
         followPosTable.put(4, fPTEntry);
+
         fPTEntry = new FollowPosTableEntry(5, "d");
         fPTEntry.followpos.add(6);
         followPosTable.put(5, fPTEntry);
+
         fPTEntry = new FollowPosTableEntry(6, "#");
         followPosTable.put(6, fPTEntry);
 
@@ -82,7 +42,7 @@ public class TestCases {
 
         creator.populateStateTransitionTable();
 
-        Map<DFAState, Map<Character, DFAState>> controllMap = new HashMap<>();
+        Map<DFAState, Map<Character, DFAState>> controlMap = new HashMap<>();
 
         DFAState state1 = new DFAState(1, false, new HashSet<>(Arrays.asList(1,2)));
         DFAState state2 = new DFAState(2, false, new HashSet<>(Arrays.asList(1,2,3,4,5)));
@@ -94,34 +54,30 @@ public class TestCases {
         innerMap.put('b', state2);
         innerMap.put('c', null);
         innerMap.put('d', null);
-        controllMap.put(state1, innerMap);
+        controlMap.put(state1, innerMap);
 
         innerMap = new HashMap<>();
         innerMap.put('a', state2);
         innerMap.put('b', state2);
         innerMap.put('c', state3);
         innerMap.put('d', state4);
-        controllMap.put(state2, innerMap);
+        controlMap.put(state2, innerMap);
 
         innerMap = new HashMap<>();
         innerMap.put('a', null);
         innerMap.put('b', state3);
         innerMap.put('c', state3);
         innerMap.put('d', state4);
-        controllMap.put(state3, innerMap);
+        controlMap.put(state3, innerMap);
 
         innerMap = new HashMap<>();
         innerMap.put('a', null);
         innerMap.put('b', null);
         innerMap.put('c', null);
         innerMap.put('d', null);
-        controllMap.put(state4, innerMap);
+        controlMap.put(state4, innerMap);
 
-        assertEquals(controllMap, creator.getStateTransitionTable());
+        assertEquals(controlMap, creator.getStateTransitionTable());
 
     }
-
-
-
-
 }
