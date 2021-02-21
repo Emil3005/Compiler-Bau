@@ -3,10 +3,12 @@ package project;
 public class Parser {
     private int position;
     private final String eingabe;
+    private int leafPos;
 
     public Parser(String eingabe) {
         this.eingabe = eingabe;
         this.position = 0;
+        this.leafPos = 1;
     }
 
     private void match(char symbol) {
@@ -28,8 +30,6 @@ public class Parser {
         }
     }
 
-    //TODO: Könnt mal nachschauen, ob das für euch auch Sinn macht (steht nahezu komplett auf S.20)
-
     public Visitable start(Visitable parameter){
         if (eingabe.charAt(position) == '('){
             match('(');
@@ -37,24 +37,30 @@ public class Parser {
             match(')');
             match('#');
             assertEndOfInput();
-            return new BinOpNode("°", subTree, new OperandNode("#"));
+            OperandNode leaf = new OperandNode("#");
+            leaf.position = leafPos;
+            return new BinOpNode("°", subTree, leaf);
         }else if (eingabe.charAt(position) == '#'){
             match('#');
             assertEndOfInput();
-            return new OperandNode("#");
+            OperandNode leaf = new OperandNode("#");
+            leaf.position = leafPos;
+            return leaf;
         }else throw new RuntimeException("Syntax error !");
     }
 
     private Visitable regexp(Visitable parameter){
         char curChar = eingabe.charAt(position);
         if (Character.isLetter(curChar) || Character.isDigit(curChar) || curChar == '(') {
-            Visitable re = (term(null));
-            return re;
+            Visitable term = (term(null));
+            return re(term);
         }else throw new RuntimeException("Syntax error !");
     }
 
     private Visitable re(Visitable parameter){
-        if (eingabe.charAt(position) == '|'){
+        char curChar = eingabe.charAt(position);
+        if (curChar == '|'){
+            match('|');
             Visitable term = term(null);
             Visitable root = new BinOpNode("|", parameter,term);
             return re(root);
@@ -111,8 +117,12 @@ public class Parser {
         if (Character.isLetter(curChar) || Character.isDigit(curChar)){
             match(curChar);
             String curString = Character.toString(curChar);
-            return new OperandNode(curString);
+            OperandNode opNode = new OperandNode(curString);
+            opNode.position = leafPos;
+            leafPos++;
+            return opNode;
         }else throw new RuntimeException("Syntax error!");
     }
 
 }
+
