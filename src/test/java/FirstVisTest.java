@@ -10,21 +10,17 @@ public class FirstVisTest {
     public void firstVisTreeEquals(){
         FirstVisitor firstVisitor=new FirstVisitor();
 
-        IVisitable left = new OperandNode("a");
-        ((SyntaxNode)left).nullable=false;
-        ((SyntaxNode)left).firstpos.add(1);
-        ((SyntaxNode)left).lastpos.add(1);
-        ((OperandNode)left).position=1;
         IVisitable right = new OperandNode("b");
         ((SyntaxNode)right).nullable=false;
         ((SyntaxNode)right).firstpos.add(2);
         ((SyntaxNode)right).lastpos.add(2);
         ((OperandNode)right).position=2;
-        right = new OperandNode("a");
-        ((SyntaxNode)right).nullable=false;
-        ((SyntaxNode)right).firstpos.add(3);
-        ((SyntaxNode)right).lastpos.add(3);
-        ((OperandNode)right).position=3;
+
+        IVisitable left = new OperandNode("a");
+        ((SyntaxNode)left).nullable=false;
+        ((SyntaxNode)left).firstpos.add(1);
+        ((SyntaxNode)left).lastpos.add(1);
+        ((OperandNode)left).position=1;
 
         left = new BinOpNode("|", left, right);
         ((SyntaxNode)left).nullable=false;
@@ -32,12 +28,6 @@ public class FirstVisTest {
         ((SyntaxNode)left).firstpos.add(2);
         ((SyntaxNode)left).lastpos.add(1);
         ((SyntaxNode)left).lastpos.add(2);
-        left = new BinOpNode("°", left, right);
-        ((SyntaxNode)left).nullable=false;
-        ((SyntaxNode)left).firstpos.add(1);
-        ((SyntaxNode)left).firstpos.add(2);
-        ((SyntaxNode)left).firstpos.add(3);
-        ((SyntaxNode)left).lastpos.add(3);
 
         left = new UnaryOpNode("*", left);
         ((SyntaxNode)left).nullable=true;
@@ -46,9 +36,18 @@ public class FirstVisTest {
         ((SyntaxNode)left).lastpos.add(1);
         ((SyntaxNode)left).lastpos.add(2);
 
+        right = new OperandNode("a");
+        ((SyntaxNode)right).nullable=false;
+        ((SyntaxNode)right).firstpos.add(3);
+        ((SyntaxNode)right).lastpos.add(3);
+        ((OperandNode)right).position=3;
 
-
-
+        left = new BinOpNode("°", left, right);
+        ((SyntaxNode)left).nullable=false;
+        ((SyntaxNode)left).firstpos.add(1);
+        ((SyntaxNode)left).firstpos.add(2);
+        ((SyntaxNode)left).firstpos.add(3);
+        ((SyntaxNode)left).lastpos.add(3);
 
         right = new OperandNode("b");
         ((SyntaxNode)right).nullable=false;
