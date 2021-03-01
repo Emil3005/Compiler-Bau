@@ -93,37 +93,23 @@ public class FirstVisTest {
 
         right = new OperandNode("b");
         ((OperandNode)right).position=2;
-
         left = new OperandNode("a");
         ((OperandNode)left).position=1;
-
         left = new BinOpNode("|", left, right);
-
         left = new UnaryOpNode("*", left);
-
         right = new OperandNode("a");
         ((OperandNode)right).position=3;
-
         left = new BinOpNode("°", left, right);
-
         right = new OperandNode("b");
         ((OperandNode)right).position=4;
-
         left = new BinOpNode("°", left, right);
-
         right = new OperandNode("b");
         ((OperandNode)right).position=5;
-
         left = new BinOpNode("°", left, right);
-
         right = new OperandNode("#");
         ((OperandNode)right).position=6;
-
         IVisitable changeableTree = new BinOpNode("°", left, right);
-
         DepthFirstIterator.traverse(changeableTree,firstVisitor);
-
-
         assertTrue(FirstVisitorEquals(refTree,changeableTree));
 
     }
@@ -156,10 +142,7 @@ public class FirstVisTest {
                     op1.lastpos.equals(op2.lastpos);
         }
         throw new IllegalStateException(
-                "invalid Arguments" +
-                        expected.getClass().getSimpleName());
-
-
+                "invalid Arguments" + expected.getClass().getSimpleName());
     }
     
 }
