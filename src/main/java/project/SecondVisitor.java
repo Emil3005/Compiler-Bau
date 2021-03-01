@@ -1,8 +1,10 @@
 package project;
 
+
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+//8622410
 public class SecondVisitor implements IVisitor {
     private final SortedMap<Integer, FollowPosTableEntry> followPosTableEntries = new TreeMap<>();
 

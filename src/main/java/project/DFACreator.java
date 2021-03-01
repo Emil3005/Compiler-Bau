@@ -1,7 +1,8 @@
 package project;
 
-import java.util.*;
 
+import java.util.*;
+//9899545
 public class DFACreator {
 
     private final Set<Integer>                            positionsForStartState;

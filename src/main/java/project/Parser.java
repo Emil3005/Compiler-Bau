@@ -1,5 +1,6 @@
 package project;
 
+//9295660
 public class Parser {
     private int position;
     private final String eingabe;
