@@ -2,7 +2,7 @@ package project;
 
 
 import java.util.*;
-//9899545
+// @author 9899545
 public class DFACreator {
 
     private final Set<Integer>                            positionsForStartState;
@@ -86,7 +86,7 @@ public class DFACreator {
                 }
 
                 innerMap.put(Character.valueOf(symbol.charAt(0)), nextState);
-                //Überprüfen, ob Folgezustand schone rfasst bzw. verarbeitet wurde
+                //Überprüfen, ob Folgezustand schon erfasst bzw. verarbeitet wurde
                 //fals nicht, am Ende von qStates hinzufügen
                 if(nextState != null && !stateTransitionTable.containsKey(nextState) && !qStates.contains(nextState))
                 {

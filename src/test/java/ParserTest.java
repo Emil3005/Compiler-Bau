@@ -3,7 +3,7 @@ import project.*;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//9295660
+//@author 9295660
 public class ParserTest {
 
     private static boolean equals(IVisitable v1, IVisitable v2){
